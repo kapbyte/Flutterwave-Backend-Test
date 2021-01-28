@@ -1,5 +1,5 @@
 {
-  "name": "validation-API",
+  "name": "validation-api",
   "version": "1.0.0",
   "description": "API for validation",
   "main": "index.js",
@@ -10,6 +10,7 @@
   "author": "Kelechi Chinaka",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "joi": "^17.3.0"
   }
 }

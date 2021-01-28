@@ -12,3 +12,9 @@ exports.homeController = (req, res) => {
     }
   });
 };
+
+// validate-rule API controller
+exports.validateController = (req, res) => {
+  console.log(req.body);
+  return res.status(200).send('OKAY');
+};

@@ -2,9 +2,11 @@ const router = require('express').Router();
 
 // Import controllers
 const { 
-  homeController
+  homeController,
+  validateController
 } = require('../controller/index');
 
 router.get('/', homeController);
+router.post('/validate-rule', validateController);
 
 module.exports = router;
