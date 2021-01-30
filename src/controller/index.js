@@ -9,15 +9,12 @@ exports.validateController = (req, res) => {
   const JSONDetailsValidationResponse = validateJSONDetailsHelper(req.body);
 
   if (JSONDetailsValidationResponse === true) {
-    
-    // If the field specified in the rule object is missing from the data passed, your endpoint response (HTTP 400 status code)
     const { rule, data } = req.body;
 
     if (rule.field.includes('.')) {
       const splitFields = rule.field.split('.');
       
       if (!data.hasOwnProperty(`${splitFields[0]}`)) {
-        console.log('err1')
         return res.status(400).json({
           message: `field ${splitFields[0]} is missing from data.`,
           status: "error",
@@ -25,7 +22,6 @@ exports.validateController = (req, res) => {
         });
       } else {
         if (!data[`${splitFields[0]}`].hasOwnProperty(`${splitFields[1]}`)) {
-          console.log('err2')
           return res.status(400).json({
             message: `field ${rule.field} is missing from data.`,
             status: "error",
@@ -34,16 +30,7 @@ exports.validateController = (req, res) => {
         } else {
 
           const { field, condition, condition_value } = rule;
-
-          console.log("data2 -> ", data);
-          console.log("rule2 -> ", rule);
-          console.log(">>2 ", field, condition, condition_value);
-          console.log("->2 ", data[`${splitFields[0]}`][`${splitFields[1]}`]);
-          console.log("===>2 ", condition, condition_value, rule.condition_value);
-
-          const checkerResponse = isValidCheckHelper(condition, condition_value, data, field);
-
-          console.log("error -> ", checkerResponse['data']['validation']['error']);
+          const checkerResponse = isValidCheckHelper(condition, condition_value, data[`${splitFields[0]}`], field);
 
           if (checkerResponse['data']['validation']['error']) {
             return res.status(400).json(checkerResponse);
@@ -66,17 +53,7 @@ exports.validateController = (req, res) => {
     }
 
     const { field, condition, condition_value } = rule;
-
-    // console.log("data -> ", data);
-    // console.log("rule -> ", rule);
-    // console.log(">> ", field, condition, condition_value);
-    // console.log("-> ", data[`${field}`]);
-    // console.log("===> ", condition, condition_value, rule.condition_value);
-
-
     const checkerResponse = isValidCheckHelper(condition, condition_value, data, field);
-
-    console.log("error -> ", checkerResponse['data']['validation']['error']);
 
     if (checkerResponse['data']['validation']['error']) {
       return res.status(400).json(checkerResponse);
@@ -110,7 +87,6 @@ const validateJSONDetailsHelper = (payload) => {
   }
 
   if (error.details[0].type === "any.required") {
-    console.log("err -> ", error);
     return {
       message: `${error.details[0].path[0]} is required.`,
       status: "error",
@@ -119,7 +95,6 @@ const validateJSONDetailsHelper = (payload) => {
   } 
 
   if (error.details[0].type === "alternatives.types") {
-    console.log("err2 -> ", error);
     return {
       message: `${error.details[0].path[0]} should be a|an [${error.details[0].context.types}].`,
       status: "error",
