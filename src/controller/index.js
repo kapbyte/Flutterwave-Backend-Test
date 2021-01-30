@@ -30,10 +30,7 @@ exports.validateController = (req, res) => {
         } else {
 
           const { field, condition, condition_value } = rule;
-          console.log("==> ", condition, data[`${splitFields[0]}`][`${splitFields[1]}`], data[`${splitFields[0]}`], `${splitFields[1]}`);
-          console.log("field => ", `${splitFields[1]}`);
-
-          const checkerResponse = isValidCheckHelper(condition, data[`${splitFields[0]}`][`${splitFields[1]}`], data[`${splitFields[0]}`], `${splitFields[1]}`);
+          const checkerResponse = isValidCheckHelper(condition, condition_value, data[`${splitFields[0]}`], `${splitFields[1]}`);
 
           if (checkerResponse['data']['validation']['error']) {
             return res.status(400).json(checkerResponse);
@@ -109,7 +106,6 @@ const validateJSONDetailsHelper = (payload) => {
 
 
 const isValidCheckHelper = (condition, condition_value, data, field) => {
-  console.log("isValidCheckHelper -> ", condition, condition_value, data, field);
   // Validation check
   if (condition === "gte" && data[`${field}`] >= condition_value) {
     return {
