@@ -108,98 +108,66 @@ const validateJSONDetailsHelper = (payload) => {
 const isValidCheckHelper = (condition, condition_value, data, field) => {
   // Validation check
   if (condition === "gte" && data[`${field}`] >= condition_value) {
-    return {
-      "message": `field ${field} successfully validated.`,
-      "status": "success",
-      "data": {
-        "validation": {
-          "error": false,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const successResponse = successResponseHelper(condition, condition_value, field);
+    return successResponse;
   }
 
   if (condition === "eq" && data[`${field}`] === condition_value) {
-    return {
-      "message": `field ${field} successfully validated.`,
-      "status": "success",
-      "data": {
-        "validation": {
-          "error": false,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const successResponse = successResponseHelper(condition, condition_value, field);
+    return successResponse;
   }
 
   if (condition === "gt" && data[`${field}`] > condition_value) {
-    return {
-      "message": `field ${field} successfully validated.`,
-      "status": "success",
-      "data": {
-        "validation": {
-          "error": false,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const successResponse = successResponseHelper(condition, condition_value, field);
+    return successResponse;
   }
 
   if (condition === "neq" && data[`${field}`] < condition_value) {
-    return {
-      "message": `field ${field} successfully validated.`,
-      "status": "success",
-      "data": {
-        "validation": {
-          "error": false,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const successResponse = successResponseHelper(condition, condition_value, field);
+    return successResponse;
   }
 
 
   if (condition === "contains" && data.includes(condition_value)) {
-    return {
-      "message": `field ${field} successfully validated.`,
-      "status": "success",
-      "data": {
-        "validation": {
-          "error": false,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const successResponse = successResponseHelper(condition, condition_value, field);
+    return successResponse;
   } else {
     // Failed condition response
-    return {
-      "message": `field ${field} failed validation.`,
-      "status": "error",
-      "data": {
-        "validation": {
-          "error": true,
-          "field": `${field}`,
-          "field_value": `${condition_value}`,
-          "condition": `${condition}`,
-          "condition_value": `${condition_value}`
-        }
-      }
-    };
+    const errorResponse = errorResponseHelper(condition, condition_value, field);
+    return errorResponse;
   }
 };
+
+
+const successResponseHelper = (condition, condition_value, field) => {
+  return {
+    "message": `field ${field} successfully validated.`,
+    "status": "success",
+    "data": {
+      "validation": {
+        "error": false,
+        "field": `${field}`,
+        "field_value": `${condition_value}`,
+        "condition": `${condition}`,
+        "condition_value": `${condition_value}`
+      }
+    }
+  };
+};
+
+
+const errorResponseHelper = (condition, condition_value, field) => {
+  return {
+    "message": `field ${field} failed validation.`,
+    "status": "error",
+    "data": {
+      "validation": {
+        "error": true,
+        "field": `${field}`,
+        "field_value": `${condition_value}`,
+        "condition": `${condition}`,
+        "condition_value": `${condition_value}`
+      }
+    }
+  };
+}
