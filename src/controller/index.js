@@ -141,15 +141,15 @@ const isValidCheckHelper = (condition, condition_value, data, field) => {
 
 const successResponseHelper = (condition, condition_value, field) => {
   return {
-    "message": `field ${field} successfully validated.`,
-    "status": "success",
-    "data": {
-      "validation": {
-        "error": false,
-        "field": `${field}`,
-        "field_value": `${condition_value}`,
-        "condition": `${condition}`,
-        "condition_value": `${condition_value}`
+    message: `field ${field} successfully validated.`,
+    status: "success",
+    data: {
+      validation: {
+        error: false,
+        field: `${field}`,
+        field_value: `${condition_value}`,
+        condition: `${condition}`,
+        condition_value: `${condition_value}`
       }
     }
   };
@@ -158,15 +158,15 @@ const successResponseHelper = (condition, condition_value, field) => {
 
 const errorResponseHelper = (condition, condition_value, field) => {
   return {
-    "message": `field ${field} failed validation.`,
-    "status": "error",
-    "data": {
-      "validation": {
-        "error": true,
-        "field": `${field}`,
-        "field_value": `${condition_value}`,
-        "condition": `${condition}`,
-        "condition_value": `${condition_value}`
+    message: `field ${field} failed validation.`,
+    status: "error",
+    data: {
+      validation: {
+        error: true,
+        field: `${field}`,
+        field_value: `${condition_value}`,
+        condition: `${condition}`,
+        condition_value: `${condition_value}`
       }
     }
   };
